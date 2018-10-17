@@ -31,18 +31,27 @@
                 It comes with some basic styles and the ability to make cool layouts!
                 You can choose a different theme <a href="https://www.bootstrapcdn.com/bootswatch/" target="_blank">here</a>, just replace the href in the linked stylesheet in the header.
             </li>
+            <li>
+                Use the internet to your advantage!
+                Many people run into the same problems, this means you should be able to find awnsers to common questions.
+                <a href="https://stackoverflow.com/">Stack Overflow</a> was built exactly for this! <a href="https://google.com">Google</a> might also have awnsers for you.
+                Articles on <a href="https://www.w3schools.com/js/js_ajax_http_send.asp">W3Schools</a> are a good starting point for web development and
+                .NET has good documentation over at <a href="https://docs.microsoft.com/en-us/aspnet/core/mvc/controllers/actions?view=aspnetcore-2.1">Microsoft</a>.
+            </li>
         </ul>
     </div>
     <div class="col-xl-6">
         <h2>Requirements</h2>
         <ul>
-            <li>Ability to add new todo.</li>
-            <li>Display all existing todos.</li>
-            <li>User should be able to edit existing todo.</li>
-            <li>Todos can be deleted.</li>
-            <li>Display confirmation popup so that user doesn't accidentally delete a todo.</li>
-            <li>Show the time since todo was last edited. Like 54 minutes ago.</li>
-            <li>Allow the user to reorder the todo items. <ul><li>you need to extend the C# API for this</li></ul></li>
+            <li><span class="badge badge-warning">JS</span> <span class="badge badge-danger">AJAX</span> Display all existing todos.</li>
+            <li><span class="badge badge-warning">JS</span> <span class="badge badge-danger">AJAX</span> Ability to add new todo. </li>
+            <li><span class="badge badge-warning">JS</span> <span class="badge badge-danger">AJAX</span> User should be able to edit existing todo. </li>
+            <li><span class="badge badge-warning">JS</span> <span class="badge badge-danger">AJAX</span> Todos can be deleted. </li>
+            <li><span class="badge badge-warning">JS</span> Display confirmation popup when clicking on delete. </li>
+            <li><span class="badge badge-warning">JS</span> Show the time since todo was last edited. Like 54 minutes ago. </li>
+            <li><span class="badge badge-warning">JS</span> <span class="badge badge-danger">AJAX</span> <span class="badge badge-primary">C#</span> Allow the user to reorder the todo items. <ul><li>you need to extend the C# API for this</li></ul></li>
+            <li><span class="badge badge-primary">C#</span> Todo list should not dissapear when reloading applications. Store the todo items in a file. <ul><li>Reimplement ITodoService in a new class. Don't change the existing one! You should always be able to switch back or to another!</li></ul></li>
+            <li><span class="badge badge-primary">C#</span> <span class="badge badge-info">NuGet</span> Persist the todo items in a database. <ul><li>MySQL recommended (it's free) but anything goes!</li><li>Use the Dapper NuGet package!</li></ul></li>
         </ul>
     </div>
     <div class="col-xl-12">        

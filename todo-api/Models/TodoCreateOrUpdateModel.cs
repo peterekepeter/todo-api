@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace todo_api.Models
+namespace TodoApi.Models
 {
     /// <summary>
     /// Represents information necessary to create or update TodoModel
