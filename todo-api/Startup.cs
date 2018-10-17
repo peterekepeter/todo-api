@@ -9,7 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
-namespace todo_api
+using TodoApi.Services;
+
+namespace TodoApi
 {
     public class Startup
     {
@@ -30,6 +32,9 @@ namespace todo_api
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
+
+            // register implementation for the ITodoService, swap to different implementation
+            services.AddSingleton<ITodoService, MemoryTodoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

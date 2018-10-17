@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace todo_api.Models
+namespace TodoApi.Models
 {
     public class TodoModel
     {

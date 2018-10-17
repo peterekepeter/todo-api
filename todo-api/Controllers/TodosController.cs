@@ -6,57 +6,51 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using todo_api.Models;
+using TodoApi.Models;
+using TodoApi.Services;
 
 namespace todo_api.Controllers
 {
+    // The job of this controller is to translates web requests to C# calls.
+    // It should never have more code than calling some service from another class.
+
     [Route("api/[controller]")]
     public class TodosController : Controller
     {
-        static readonly ConcurrentDictionary<int, TodoModel> todoRepository = new ConcurrentDictionary<int, TodoModel>();
-        static int _idGenerator = 0;
-
-        // GET api/todos
         [HttpGet]
         [ProducesResponseType(typeof(List<TodoModel>), 200)]
-        public IActionResult Get()
+        public IActionResult Get([FromServices] ITodoService todos)
         {
-            return Ok(todoRepository.Values.ToList());
+            return Ok(todos.GetAll());
         }
 
         // GET api/todos/5
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(TodoModel), 200)]
-        public IActionResult Get([FromRoute(Name = "id")] int id)
+        public IActionResult Get([FromRoute(Name = "id")] int id, [FromServices] ITodoService todos)
         {
-            if (todoRepository.TryGetValue(id, out var todo))
+            var todo = todos.GetById(id);
+            if (todo == null)
             {
-                return Ok(todo);
+                return NotFound();
             }
-            return NotFound();
+            return Ok(todo);
         }
 
         // POST api/todos
         [HttpPost]
-        public IActionResult Post([FromBody]TodoCreateOrUpdateModel value)
+        public IActionResult Post([FromBody]TodoCreateOrUpdateModel value, [FromServices] ITodoService todos)
         {
-            var todo = new TodoModel();
-            todo.Created = DateTimeOffset.Now;
-            todo.Text = value.Text;
-            _idGenerator += 1;
-            todo.Id = _idGenerator;
-            todoRepository.AddOrUpdate(_idGenerator, i => todo, (i, model) => todo);
+            todos.AddNew(value.Text); 
             return Ok();
         }
 
         // PUT api/todos/5
         [HttpPut("{id}")]
-        public IActionResult Put([FromRoute(Name = "id")] int id, [FromBody]TodoCreateOrUpdateModel value)
+        public IActionResult Put([FromRoute(Name = "id")] int id, [FromBody]TodoCreateOrUpdateModel value, [FromServices] ITodoService todos)
         {
-            if (todoRepository.TryGetValue(id, out var todo))
+            if (todos.Update(id, value.Text))
             {
-                todo.Text = value.Text;
-                todo.Updated = DateTimeOffset.Now;
                 return Ok();
             }
             return NotFound();
@@ -64,9 +58,9 @@ namespace todo_api.Controllers
 
         // DELETE api/todos/5
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute(Name = "id")] int id)
+        public IActionResult Delete([FromRoute(Name = "id")] int id, [FromServices] ITodoService todos)
         {
-            if (todoRepository.TryRemove(id, out var todo))
+            if (todos.Delete(id))
             {
                 return Ok();
             }
